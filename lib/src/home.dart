@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todolist/src/data/database.dart';
 
 import 'dialog_box.dart';
 import 'to_do_list.dart';
@@ -10,25 +12,36 @@ class screen extends StatefulWidget {
 }
 
 class _screenState extends State<screen> {
-  final _controller = TextEditingController();
+  final _mybox = Hive.box('mybox');
+  ToDoDatabase db = ToDoDatabase();
 
-  List toDoList = [
-    ['Text one', false],
-    ['Text two', false],
-  ];
+  @override
+  void initState() {
+    if (_mybox.get("TODOLIST") == null) {
+      db.creatrInitialData();
+    } else {
+      db.loadData();
+    }
+
+    super.initState();
+  }
+
+  final _controller = TextEditingController();
 
   void checkBoxChanged(bool? value, int index) {
     setState(() {
-      toDoList[index][1] = !toDoList[index][1];
+      db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateDataBase();
   }
 
   void saveNewTask() {
     setState(() {
-      toDoList.add([_controller.text, false]);
+      db.toDoList.add([_controller.text, false]);
       _controller.clear();
     });
     Navigator.of(context).pop();
+    db.updateDataBase();
   }
 
   void createNewTask() {
@@ -46,8 +59,9 @@ class _screenState extends State<screen> {
 
   void deleteTask(int index) {
     setState(() {
-      toDoList.removeAt(index);
+      db.toDoList.removeAt(index);
     });
+    db.updateDataBase();
   }
 
   @override
@@ -74,11 +88,11 @@ class _screenState extends State<screen> {
         foregroundColor: Colors.black, //<-- SEE HERE
       ),
       body: ListView.builder(
-        itemCount: toDoList.length,
+        itemCount: db.toDoList.length,
         itemBuilder: (context, index) {
           return ToDoList(
-            taskCompleted: toDoList[index][1],
-            taskName: toDoList[index][0],
+            taskCompleted: db.toDoList[index][1],
+            taskName: db.toDoList[index][0],
             onChanged: (value) => checkBoxChanged(value, index),
             deleteFunction: (context) => deleteTask(index),
           );
