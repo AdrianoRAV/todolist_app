@@ -40,7 +40,8 @@ class ToDoList extends StatelessWidget {
           padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
             //color: Color.fromRGBO(1, 255, 255, 1),
-            color: Color.fromRGBO(5, 255, 155, 1),
+            //color: Color.fromRGBO(5, 255, 155, 1),
+            color: Color.fromRGBO(5, 209, 255, 1),
 
             borderRadius: BorderRadius.circular(12),
           ),

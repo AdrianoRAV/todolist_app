@@ -68,12 +68,13 @@ class _screenState extends State<screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       //  backgroundColor: Color.fromRGBO(255, 254, 255, 1),
-      backgroundColor: Color.fromRGBO(40, 30, 65, 1),
+      //backgroundColor: Color.fromRGBO(40, 30, 65, 1),
+      backgroundColor: Colors.white,
 
       appBar: AppBar(
         // backgroundColor: Color.fromRGBO(0, 197, 205, 1),
-        backgroundColor: Color.fromRGBO(5, 255, 155, 1),
-
+        // backgroundColor: Color.fromRGBO(5, 255, 155, 1),
+        backgroundColor: Color.fromRGBO(5, 209, 255, 1),
         title: Center(
             child: Text(
           'Lista de Tarefas',
@@ -84,7 +85,9 @@ class _screenState extends State<screen> {
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
         child: Icon(Icons.add),
-        backgroundColor: Color.fromRGBO(5, 255, 155, 1),
+        //  backgroundColor: Color.fromRGBO(5, 255, 155, 1),
+        backgroundColor: Color.fromRGBO(5, 209, 255, 1),
+
         foregroundColor: Colors.black, //<-- SEE HERE
       ),
       body: ListView.builder(
@@ -98,20 +101,6 @@ class _screenState extends State<screen> {
           );
         },
       ),
-      /*   body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            decoration: InputDecoration(
-              labelText: 'E-mail',
-              hintText: 'exemple@exemple.com',
-              //border: InputBorder.none;
-              errorText: null,
-            ),
-            //obscureText: false,
-          ),
-        ),
-      ),*/
     );
   }
 }
